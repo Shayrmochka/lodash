@@ -288,6 +288,41 @@ function _() {
   };
 
   _.before = before;
+
+  // ===========================
+  // _.bind(func, thisArg, [partials])
+  // ===========================
+  // Creates a function that invokes func with the this binding of thisArg and partials prepended to the arguments it receives.
+  // The _.bind.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder for partially applied arguments.
+  const bind = (func, obj, string) => {
+    return func.bind(obj, string);
+  };
+
+  _.bind = bind;
+
+  // ===========================
+  // _.delay(func, wait, [args])
+  // ===========================
+  //Invokes func after wait milliseconds. Any additional arguments are provided to func when it's invoked.
+  const delay = (func, delay, ...args) => {
+    return setTimeout(() => func(args.join(" ")), delay);
+  };
+
+  _.delay = delay;
+
+  // ===========================
+  // _.overArgs(func, [transforms=[_.identity]])
+  // ===========================
+  // Creates a function that invokes func with its arguments transformed.
+  const overArgs = (func, transforms) => {
+    return (...args) => {
+      let values = func(...args);
+      return values.map((el, i) =>
+        i < transforms.length ? transforms[i](el) : transforms[0](el)
+      );
+    };
+  };
+  _.overArgs = overArgs;
 }
 
 // initialiazation lodash function
